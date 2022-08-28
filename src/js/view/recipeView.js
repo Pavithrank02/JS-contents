@@ -30,7 +30,7 @@ import {Fraction}  from 'fractional';
     }
 
 addHandlerRender(handler) {
-  ['hashchange', 'load'].forEach(ev => window.addEventListener(ev,handler))
+  ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler))
 
     // window.addEventListener('hashchange',handler);
     // window.addEventListener('load',handler);
