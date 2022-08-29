@@ -2,7 +2,7 @@ class SearchView {
 _parentEl = document.querySelector('.search');
 
 getQuery() {
-    console.log(this._parentEl, 'r');
+    //console.log(this._parentEl, 'r');
     return this._parentEl.querySelector('.search__field').value;
 
 }
@@ -14,12 +14,13 @@ _clearInput() {
 }
 
 addHandlerSearch(handler) {
-    this._parentEl.addEventListener('sumbit', function(e) {
-        console.log('e', e);
+    //console.log(this._parentEl);
+    this._parentEl.addEventListener('submit', function(e) {
+        //console.log('e', e);
         e.preventDefault();
         handler();
     })
-    console.log(handler);
+    //console.log(handler);
 }
 
 }
