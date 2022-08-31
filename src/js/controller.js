@@ -7,9 +7,9 @@ import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 //console.log(icons);
 const controlRecipes = async function() {
   //loading recipe
@@ -45,7 +45,7 @@ const controlSearchResults = async function() {
     //console.log(query);
     
     //console.log(model.state.search.results);
-    resultsView.render(model.state.search.results)
+    resultsView.render(model.getSearchResultsPage());
   } catch(err) {
     console.log(err)
   }
