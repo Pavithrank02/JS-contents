@@ -2851,11 +2851,11 @@ class SearchView {
     _parentEl = document.querySelector(".search");
     getQuery() {
         //console.log(this._parentEl, 'r');
-        return this._parentEl.querySelector(".search__field").value;
+        const query1 = this._parentEl.querySelector(".search__field").value;
+        this._clearInput();
     }
     _clearInput() {
-        const query = this._parentEl.querySelector(".search__field").value = "";
-        this._clearInput();
+        this._parentEl.querySelector(".search__field").value = "";
         return query;
     }
     addHandlerSearch(handler) {
