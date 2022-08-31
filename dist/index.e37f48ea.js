@@ -543,6 +543,7 @@ var _resultsViewJs = require("./view/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 var _regeneratorRuntime = require("regenerator-runtime");
+if (module.hot) module.hot.accept();
 //console.log(icons);
 const controlRecipes = async function() {
     //loading recipe
@@ -562,13 +563,15 @@ const controlRecipes = async function() {
 };
 const controlSearchResults = async function() {
     try {
-        //resultsView.renderSpinner();
+        (0, _resultsViewJsDefault.default).renderSpinner();
+        //console.log(resultsView);
         const query = (0, _searchViewJsDefault.default).getQuery();
         //console.log(query);
         if (!query) return;
         await _modelJs.loadSearchResults(query);
         //console.log(query);
-        console.log(_modelJs.state.search.results);
+        //console.log(model.state.search.results);
+        (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
     }
@@ -2438,9 +2441,7 @@ class RecipeView extends (0, _viewJsDefault.default) {
           </div>
 
           <div class="recipe__user-generated">
-            <svg>
-              <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
-            </svg>
+      
           </div>
           <button class="btn--round">
             <svg class="">
@@ -2791,12 +2792,14 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class View {
     _data;
     render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     _clear() {
+        //console.log(this._parentElement);
         this._parentElement.innerHTML = "";
     }
     renderSpinner = function() {
@@ -2872,11 +2875,36 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./view.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class ResultsView extends (0, _viewJsDefault.default) {
-    _parentEl = document.querySelector(".results");
+    _parentElement = document.querySelector(".results");
+    _errorMessage = "we could not no recipes found for your query .Please try again";
+    _message = "";
+    _generateMarkup() {
+        console.log(this._data);
+        return this._data.map(this._generateMarkupPreview).join("");
+    }
+    _generateMarkupPreview(result) {
+        return `
+        <li class="preview">
+            <a class="preview__link" href="#${result.id}">
+              <figure class="preview__fig">
+                <img src="${result.image}" alt="${result.title}" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">${result.title}</h4>
+                <p class="preview__publisher">${result.publisher}</p>
+                <div class="preview__user-generated">
+                </div>
+              </div>
+            </a>
+          </li>
+        `;
+    }
 }
 exports.default = new ResultsView();
 
-},{"./view.js":"4wVyX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fA0o9","aenu9"], "aenu9", "parcelRequire3a11")
+},{"./view.js":"4wVyX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp"}]},["fA0o9","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map

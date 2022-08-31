@@ -5,6 +5,11 @@ import resultsView from './view/resultsView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
+
+
+if (module.hot) {
+  module.hot.accept();
+}
 //console.log(icons);
 const controlRecipes = async function() {
   //loading recipe
@@ -17,6 +22,7 @@ const controlRecipes = async function() {
     recipeView.renderSpinner();
     // 1 loading recipe
     await model.loadRecipe(id);
+
    //const {recipe} = model.state;
     
     // 2 rendering recipe
@@ -28,7 +34,8 @@ const controlRecipes = async function() {
 const controlSearchResults = async function() {
   try{
 
-    //resultsView.renderSpinner();
+    resultsView.renderSpinner();
+    //console.log(resultsView);
 
     const query = searchView.getQuery();
     //console.log(query);
@@ -37,7 +44,8 @@ const controlSearchResults = async function() {
     await model.loadSearchResults(query);
     //console.log(query);
     
-    console.log(model.state.search.results);
+    //console.log(model.state.search.results);
+    resultsView.render(model.state.search.results)
   } catch(err) {
     console.log(err)
   }
